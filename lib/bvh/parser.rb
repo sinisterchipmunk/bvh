@@ -15,7 +15,7 @@ class Bvh
       s = source
       # it's tempting to just downcase the whole string, but that'd change the case of object names, which might be
       # bad for the end user. So we'll swap out specific keywords instead.
-      s.gsub!(/^((\s*)(root|offset|channels|joint|end site|hierarchy)([^\n]*\n))/mi) do |str|
+      s.gsub!(/^((\s*)(root|offset|channels|joint|end site|hierarchy)([^\n]*\n))/mi) do
         match = $~
         "#{match[2]}#{match[3].downcase.gsub(/\s/, '_')} \"#{match[4].strip}\"\n"
       end
@@ -23,7 +23,7 @@ class Bvh
       s.gsub!(/\n\s*\{/m, ' do').gsub!(/\}/m, 'end')
 
       # Finally, handle the MOTION segment, which can be treated as a single method call.
-      s.gsub!(/^((\s*)(motion)(.*))/mi) do |str|
+      s.gsub!(/^((\s*)(motion)(.*))/mi) do
         "#{$~[2]}#{$~[3].downcase} <<-EOF\n#{$~[4].strip}\nEOF\n"
       end
 
@@ -86,11 +86,11 @@ class Bvh
     #       end
     #     end
     #   end
-    def end_site(unused, &block)
+    def end_site(*unused, &block)
       bone Bvh::Skeleton::Bone, nil, &block
     end
 
-    def hierarchy(unused)
+    def hierarchy(*unused)
       @mode = :hierarchy
     end
 
@@ -158,6 +158,7 @@ class Bvh
       raise ArgumentError, "Too many channels: #{channels.length} unaccounted for" if channels.length > 0
     end
 
+    # this is now a binding.
 #    def channel_data(channels, bone)
 #      return [] unless bone.respond_to? :channels
 #      data = Bvh::Motion::ChannelData.new(bone)
