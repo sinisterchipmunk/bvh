@@ -17,6 +17,12 @@ And you can export them just so:
 
 For a more exhaustive set of examples, see Bvh.
 
+== IMPORTANT
+
+Although BVH is marked as 1.0, there is some functionality I haven't yet tested. In particular, the transform matrices
+may or may not be accurate. The numbers look right from my command line, but I haven't had a chance to plug BVH into my
+graphics engine, so they may in fact be wrong. Please let me know what you learn if you've tested this!
+
 == The Format
 
 What follows is a run-down of what I've learned about the BVH file format while researching and coding this library.
@@ -81,8 +87,9 @@ the numbers correspond to rotation.
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Commit -- do not mess with rakefile, version, or history.
+  (If you want to have your own version, that's fine, but bump version in a commit by itself so that I can ignore it
+  when I pull.)
 * Send me a pull request. Bonus points for topic branches.
 
 == Copyright
