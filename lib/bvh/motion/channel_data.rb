@@ -9,6 +9,35 @@ class Bvh
         super(*args, &block)
       end
 
+      # call-seq:
+      #   channel_data + channel_data  => new_channel_data
+      #   channel_data - channel_data  => new_channel_data
+      #   channel_data / channel_data  => new_channel_data
+      #   channel_data * channel_data  => new_channel_data
+      #   channel_data + number => new_channel_data
+      #   channel_data - number => new_channel_data
+      #   channel_data / number => new_channel_data
+      #   channel_data * number => new_channel_data
+      #
+      # Performs arithmetic on this frame with the target. The second operand may be either a number or another
+      # ChannelData. If the target is a number, then that number is added to, subtracted from, multiplied with, or
+      # divided against each channel of this ChannelData.
+      #
+      # If the target is another ChannelData, the arithmetic looks something like this:
+      #   return_value['Xposition'] = channel_data_one['Xposition'] * channel_data_two['Xposition']
+      #   return_value['Yposition'] = channel_data_one['Yposition'] * channel_data_two['Yposition']
+      #   return_value['Zposition'] = channel_data_one['Zposition'] * channel_data_two['Zposition']
+      #   . . .
+      #
+      # Both objects must contain the same number of channels, and must also reference the same bone.
+      #
+      # Returns a new instance of ChannelData containing the result.
+      #
+      def arithmetic_proc(target)
+        # Fooled you again! I metaprogrammed it to save some typing!
+      end
+      undef arithmetic_proc
+
       [:+, :-, :/, :*].each do |operator|
         define_method operator do |target|
           ret = ChannelData.new(bone)
@@ -28,27 +57,41 @@ class Bvh
       # Sets the specified channel to a value of theta, and then returns self.
       def set_channel(channel, theta)
         channel = channel.to_s if channel.kind_of? Symbol
-        raise "Channel not found (expected one of #{self.keys.inspect})" unless self.keys.include? channel
+        raise "Channel not found: #{channel} (expected one of #{self.keys.inspect})" unless self.keys.include? channel
         self[channel] = theta
       end
 
-      # Modifies this datum, resulting in a rotation around the specified channel.
+      # Retrieves and returns the specified channel datum, raising an error if its key is not found.
+      # If the channel key is a symbol, it is converted to a string before the lookup is performed.
+      def get_channel(channel)
+        channel = channel.to_s if channel.kind_of?(Symbol)
+        raise "Channel not found: #{channel} (expected one of #{self.keys.inspect})" unless self.keys.include?(channel)
+        self[channel]
+      end
+
+      # Modifies the specified channel datum, resulting in a rotation around the specified channel.
       def rotate!(channel, theta)
+        theta = get_channel(channel)+theta
+        # this doesn't really have an effect, but may help keep the file from getting junked.
+        if theta >= 360 then theta %= 360
+        elsif theta <= -360 then theta %= -360
+        end
         set_channel(channel, theta)
       end
 
-      # Sets the X, Y and Z position channels of this datum to the supplied x, y, z values.
+      # Adds x, y and z to the X, Y and Z position channels, resulting in a "movement" or translation.
       def translate!(x, y, z)
-        set_channel('Xposition', x)
-        set_channel('Yposition', y)
-        set_channel('Zposition', z)
+        set_channel('Xposition', get_channel('Xposition')+x)
+        set_channel('Yposition', get_channel('Yposition')+y)
+        set_channel('Zposition', get_channel('Zposition')+z)
       end
 
       # Returns the transform matrix for this bone's channel data. See also
-      # Bvh::Motion::Frame#relative_transform_matrix(bone) and Bvh::Motion::Frame#absolute_transform_matrix(bone)
+      # Frame#relative_transform_matrix and Frame#absolute_transform_matrix.
       #
       # The resultant matrix needs to be multiplied against the parent bone's transform matrix in order
-      # to be accurate to worldspace. Otherwise it's only accurate in local space.
+      # to be accurate to worldspace. Otherwise it's only accurate in local space. If you're not sure what
+      # that means, then use Frame#absolute_transform_matrix instead.
       def relative_transform_matrix()
         # theta is retrieved from the set of numbers loaded from the BVH file, or is supplied directly
         #
@@ -75,10 +118,10 @@ class Bvh
         r = Matrix.identity(4)
         bone.channels.each do |chan|
           v = nil
-          case chan.downcase
-            when 'xrotation' then v = [1,0,0] # right vector
-            when 'yrotation' then v = [0,1,0] # up vector
-            when 'zrotation' then v = [0,0,1] # view vector
+          case chan
+            when 'Xrotation' then v = [1,0,0] # right vector
+            when 'Yrotation' then v = [0,1,0] # up vector
+            when 'Zrotation' then v = [0,0,1] # view vector
             else next # ignore nonrotational values. To my knowledge, this includes only position values.
           end
           theta = self[chan]

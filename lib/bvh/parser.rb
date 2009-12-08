@@ -15,12 +15,12 @@ class Bvh
       s = source
       # it's tempting to just downcase the whole string, but that'd change the case of object names, which might be
       # bad for the end user. So we'll swap out specific keywords instead.
-      s.gsub!(/^((\s*)(root|offset|channels|joint|end site|hierarchy)([^\n]*\n))/mi) do
+      s.gsub!(/^((\s*)(root|offset|channels|joint|end site|hierarchy)(([^\n\{]*)(\n|\{)))/mi) do
         match = $~
-        "#{match[2]}#{match[3].downcase.gsub(/\s/, '_')} \"#{match[4].strip}\"\n"
+        "#{match[2]}#{match[3].downcase.gsub(/\s/, '_')} \"#{match[5].strip}\"#{match[6]}"
       end
       # make { . . . } into proper Ruby blocks
-      s.gsub!(/\n\s*\{/m, ' do').gsub!(/\}/m, 'end')
+      s.gsub!(/[\n\s]*\{/m, ' do').gsub!(/[\n\s]*\}/m, "\nend")
 
       # Finally, handle the MOTION segment, which can be treated as a single method call.
       s.gsub!(/^((\s*)(motion)(.*))/mi) do
@@ -141,7 +141,7 @@ class Bvh
             add_frame(channels)
         end
       end
-      unless frame_count == bvh.frame_count
+      unless frame_count.nil? or frame_count == bvh.frame_count
         raise ArgumentError, "Expected %s frames, found %s" % [frame_count, bvh.frame_count]
       end
       unless frame_count == 0

@@ -1,17 +1,90 @@
-= gem
+= BVH
 
-Description goes here.
+This library allows you to parse, manipulate and save files in the BVH motion capture format.
+
+To get started, remember to add the obligatory "require" statements:
+
+  require 'rubygems'
+  require 'bvh'
+
+Once done, you can load a BVH file pretty easily:
+
+  bvh = Bvh.import("path/to/animation.bvh")
+
+And you can export them just so:
+
+  bvh.export("path/to/copy_of_animation.bvh")
+
+For a more exhaustive set of examples, see Bvh.
+
+== The Format
+
+What follows is a run-down of what I've learned about the BVH file format while researching and coding this library.
+I reserve the right to be mistaken (but I don't think I am).
+
+The BVH format was developed by a now-defunct company called Biovision, and stands for Biovision Hierarchical data
+format. Used to store motion capture data, a BVH file consists of two sections: a HIERARCHY section, which describes
+the skeletal structure that the motion capture data pertains to; and a MOTION section, which stores the motion capture
+data itself.
+
+=== Hierarchy
+
+The HIERARCHY section contains a set of nested nodes which describe a character. Most of these nodes are named. Though
+the name of a given node seems to be rarely used within the context of the BVH file itself, I suspect it will be quite
+useful when biping 3D models to various body parts -- but that's well beyond the scope of this library.
+
+Each node name is expected to be unique, regardless of usage, and this library enforces that. Every node in the
+HIERARCHY section is referred to by this library as a Bone, and a collection of Bones (beginning with the ROOT node) is
+referred to as a Skeleton.
+
+The first (outermost) node is tagged "ROOT" and is, obviously, considered the root of the skeleton. (Technically, there
+may be more than one ROOT in a BVH file, but this is atypical. This library does support multiple roots, however.)
+Following the tag is the node name, and on the next line is an opening curly brace ("{").
+
+Information about the current Bone follows the curly braces, and includes OFFSET and CHANNELS data. OFFSET information
+specifies the offset from the parent Bone, or an offset from the origin for a root. Offset information of joints are
+also used to infer length and orientation for their parent bone. If multiple joints are found, the length and
+orientation are determined from the first of them.
+
+By convention, the data for a given node is preceded by a tab character for readability. This is not technically
+necessary, but some stricter BVH parsers require this explicitly and cannot support other forms of white space. This
+library supports arbitrary amounts and types of white space.
+
+Child nodes, which are tagged "JOINT", follow the OFFSET and CHANNELS data, and recursively define the tree until an
+"End Site" node is detected. The "End Site" node contains only OFFSET information, which is used exclusively to infer
+length and orientation of the last node in the list.
+
+The CHANNELS information for each node specifies the order in which the channel information will appear; this applies
+to OFFSET data (even though the Xposition, Yposition and Zposition channels are generally only declared at the root
+level, and generally follow in the expected order) as well as the frame data in the MOTION segment.
+
+=== Motion
+
+The Motion section of the file contains the motion capture data itself. There are generally 2 lines preceding the data:
+"Frames" and "Frame Time". The "Frames" line specifies the number of frames that will follow, and the "Frame Time" field
+indicates how many seconds will pass per frame. Most BVH files specify the Frame Time as 0.0333333, or 30 frames per
+second, but this can vary.
+
+This BVH library dynamically counts the number of frames, and only uses the "Frames" field to verify that all available
+data has been loaded. If the "Frames" field is missing, this library will not raise an error -- it will simply be unable
+to verify the number of frames after a file has been loaded. (An error will be raised if the "Frames" field is supplied
+and the numbers do not match, however.)
+
+Finally, the remainder of the file consists of numbers delimited by a tab character and a space (though, again, this
+library isn't particularly picky about the white space). Each line constitutes a single frame, and the series of numbers
+on each line apply to the CHANNELS information in the order it was seen in the file. Because the same order is
+maintained, the first several numbers usually correspond to translation (usually X, Y and Z), while the remainder of
+the numbers correspond to rotation.
 
 == Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
+* Add tests for it. This is important so I don't break it in a future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
 == Copyright
 
-Copyright (c) 2009 sinisterchipmunk. See LICENSE for details.
+Copyright (c) 2009 Colin MacKenzie IV. See LICENSE for details.

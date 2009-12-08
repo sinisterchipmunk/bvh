@@ -5,12 +5,15 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "bvh"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{A library for loading, modifying and saving BVH motion capture files.}
+    gem.description = %Q{A library for loading, modifying and saving BVH motion capture files.}
     gem.email = "sinisterchipmunk@gmail.com"
-    gem.homepage = "http://github.com/sinisterchipmunk/gem"
+    gem.homepage = "http://github.com/sinisterchipmunk/bvh"
     gem.authors = ["sinisterchipmunk"]
     gem.add_development_dependency "shoulda", ">= 0"
+    gem.extensions = FileList["ext/**/extconf.rb"].to_a
+    gem.files.concat FileList["ext/**/*.c"].to_a
+    gem.files.concat FileList["ext/**/*.h"].to_a
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -49,5 +52,6 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "gem #{version}"
   rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('LICENSE')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

@@ -1,4 +1,4 @@
-#include "bvh_ext.h"
+#include "bvh.h"
 
 static VALUE rb_fParseChannelData(VALUE self, VALUE channels, VALUE bone);
 
@@ -43,7 +43,7 @@ static VALUE rb_fParseChannelData(VALUE self, VALUE channels, VALUE bone)
     {
         channel = *(rchannels->ptr+i);
         //... data[channel] = channels.shift ...
-        rb_funcall(data, rb_intern("[]="), 2, channel, rb_funcall(channels, rb_intern("shift"), 0));
+        rb_hash_aset(data, channel, rb_funcall(channels, rb_intern("shift"), 0));
     }
 
     // r = [data]

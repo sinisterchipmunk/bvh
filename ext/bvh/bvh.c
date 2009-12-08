@@ -1,8 +1,8 @@
-#include "bvh_ext.h"
+#include "bvh.h"
 
 VALUE rb_cBvh = Qnil;
 
-void Init_bvh_ext()
+void Init_bvh()
 {
     rb_cBvh = rb_define_class("Bvh", rb_cObject);
 

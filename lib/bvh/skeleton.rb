@@ -32,6 +32,7 @@ class Bvh
       # This bone is returned.
       def add_joint!(joint)
         joint.instance_variable_set("@parent", self)
+        raise "Cannot add joint: name '#{joint.name}' already exists" if self / joint.name
         joints << joint unless joints.include? joint
         self
       end

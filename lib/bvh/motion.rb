@@ -9,6 +9,12 @@ class Bvh
     # The array of frames in this animation. You can modify this directly if you wish.
     attr_reader :frames
 
+    # Returns the frames per second calculated by (1 / frame_time)
+    def frames_per_second; 1 / frame_time; end
+
+    # Assigns the frame_time by calculating it from (1 / frames_per_second)
+    def frames_per_second=(a); self.frame_time = 1 / a; end
+
     def initialize
       @frames = []
     end

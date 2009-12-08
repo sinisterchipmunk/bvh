@@ -1,11 +1,12 @@
-require File.join(File.dirname(__FILE__), '../ext/bvh_ext.so') # TODO: Move this to bin
+require 'bvh.so'
 require 'bvh/matrix'
 require 'bvh/motion'
-require 'bvh/motion/frame'
 require 'bvh/motion/channel_data'
+require 'bvh/motion/frame'
 require 'bvh/skeleton'
 require 'bvh/parser'
 require 'bvh/exporter'
+
 
 class Bvh
   # The array of skeletons associated with this BVH.
@@ -39,10 +40,16 @@ class Bvh
   # 0.333333, which is equal to 30 frames per second.
   def frame_time=(a); motion.frame_time = a; end
 
+  # Returns the frames per second calculated by (1 / frame_time)
+  def frames_per_second; motion.frames_per_second; end
+
+  # Assigns the frame_time by calculating it from (1 / frames_per_second)
+  def frames_per_second=(a); motion.frames_per_second = a; end
+
   # Returns the number of frames in the motion capture data.
   def frame_count; motion.frame_count; end
 
-  # Returns the first skeleton in the #skeletons array.
+  # Returns the first (and usually the only) skeleton in the #skeletons array.
   def skeleton; @skeletons.first; end
 
   # Creates a new skeleton, adds it to the #skeletons array, and returns it.

@@ -23,3 +23,5 @@ viewer
 test/data/in/lady.*
 test/data/out/*
 .idea
+*.o
+*.so
