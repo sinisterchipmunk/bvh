@@ -20,6 +20,6 @@ pkg
 
 ## PROJECT::SPECIFIC
 viewer
-test_data
-test_output
+test/data/in/lady.*
+test/data/out/*
 .idea
