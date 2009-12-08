@@ -25,6 +25,9 @@ class Bvh
   # Returns the frame data associated with this BVH file.
   def frames; motion.frames; end
 
+  # Returns the last frame associated with this animation.
+  def last_frame; frames.last; end
+
   # Returns the amount of time, in seconds, each frame occupies. Most BVH files have this set to
   # 0.333333, which is equal to 30 frames per second.
   def frame_time; motion.frame_time; end

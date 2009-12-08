@@ -151,7 +151,7 @@ class Bvh
     end
 
     def add_frame(channels)
-      frame = Bvh::Motion::Frame.new(bvh.skeletons)
+      frame = Bvh::Motion::Frame.new
       frame.channel_data.concat channel_data(channels, bvh.root)
       bvh.frames << frame
       raise ArgumentError, "Not enough channels: Need #{-channels.length} more" if channels.length < 0
