@@ -1,8 +1,11 @@
+require File.join(File.dirname(__FILE__), '../ext/bvh_ext.so') # TODO: Move this to bin
+require 'bvh/matrix'
+require 'bvh/motion'
+require 'bvh/motion/frame'
+require 'bvh/motion/channel_data'
+require 'bvh/skeleton'
 require 'bvh/parser'
 require 'bvh/exporter'
-require 'bvh/skeleton'
-require 'bvh/motion'
-require 'bvh/matrix'
 
 class Bvh
   # The array of skeletons associated with this BVH.

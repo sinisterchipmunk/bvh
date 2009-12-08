@@ -158,19 +158,19 @@ class Bvh
       raise ArgumentError, "Too many channels: #{channels.length} unaccounted for" if channels.length > 0
     end
 
-    def channel_data(channels, bone)
-      return [] unless bone.respond_to? :channels
-      data = Bvh::Motion::ChannelData.new(bone)
-      bone.channels.each do |channel|
-        data[channel] = channels.shift
-      end
-      r = [ data ]
-      if bone.respond_to? :joints
-        bone.joints.each do |child|
-          r.concat channel_data(channels, child)
-        end
-      end
-      r
-    end
+#    def channel_data(channels, bone)
+#      return [] unless bone.respond_to? :channels
+#      data = Bvh::Motion::ChannelData.new(bone)
+#      bone.channels.each do |channel|
+#        data[channel] = channels.shift
+#      end
+#      r = [ data ]
+#      if bone.respond_to? :joints
+#        bone.joints.each do |child|
+#          r.concat channel_data(channels, child)
+#        end
+#      end
+#      r
+#    end
   end
 end

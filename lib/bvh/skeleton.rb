@@ -48,6 +48,35 @@ class Bvh
         nil
       end
 
+      # Returns the length of this bone, inferred from the offset of its first joint.
+      def length
+        if end_site? then 0
+        else
+          ofs = joints.first.offset
+          # ofs is a vector, so we need its magnitude
+          if ofs.nil? then 0
+          else Math.sqrt(ofs[0]**2) + Math.sqrt(ofs[1]**2) + Math.sqrt(ofs[2]**2)
+          end
+        end
+      end
+
+      # Returns a unit vector representing the orientation of this bone, inferred from the offset of its first joint.
+      def orientation
+        if end_site? then [0,0,0]
+        else
+          ofs = joints.first.offset
+          if ofs.nil? then [0,0,0]
+          else
+            # ofs is a vector, so we need to normalize it
+            max = proc { |a,b| a.to_f.abs > b.to_f.abs ? a.to_f.abs : b.to_f.abs }
+            max = max.call(ofs[0], max.call(ofs[1], ofs[2]))
+            if max > 0 then [ofs[0].to_f / max, ofs[1].to_f / max, ofs[2].to_f / max]
+            else [0,0,0]
+            end
+          end
+        end
+      end
+
       alias / find_by_name
     end
   end
