@@ -15,7 +15,7 @@ And you can export them just so:
 
   bvh.export("path/to/copy_of_animation.bvh")
 
-For a more exhaustive set of examples, see Bvh.
+For a more exhaustive set of examples, see EXAMPLES.
 
 == IMPORTANT
 

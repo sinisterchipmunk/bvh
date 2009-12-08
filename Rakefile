@@ -9,7 +9,7 @@ begin
     gem.description = %Q{A library for loading, modifying and saving BVH motion capture files.}
     gem.email = "sinisterchipmunk@gmail.com"
     gem.homepage = "http://github.com/sinisterchipmunk/bvh"
-    gem.authors = ["sinisterchipmunk"]
+    gem.authors = ["Colin MacKenzie IV (sinisterchipmunk)"]
     gem.add_development_dependency "shoulda", ">= 0"
     gem.extensions = FileList["ext/**/extconf.rb"].to_a
     gem.files.concat FileList["ext/**/*.c"].to_a
@@ -52,6 +52,7 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "BVH #{version}"
   rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('EXAMPLES*')
   rdoc.rdoc_files.include('LICENSE')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
