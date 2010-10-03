@@ -25,3 +25,5 @@ test/data/out/*
 .idea
 *.o
 *.so
+*.bundle
+Makefile

@@ -25,7 +25,8 @@ static VALUE rb_fParseChannelData(VALUE self, VALUE channels, VALUE bone)
     char buf[256];
     
     VALUE data;
-    struct RArray *rchannels, *joints;
+    //struct RArray *rchannels, *joints;
+    VALUE rchannels, joints;
     long i;
     VALUE channel, joint;
     VALUE r = rb_ary_new();
@@ -38,10 +39,11 @@ static VALUE rb_fParseChannelData(VALUE self, VALUE channels, VALUE bone)
     data = rb_funcall(rb_cChannelData, rb_intern("new"), 1, bone);
 
     // bone.channels.each { |channel| data[channel] = channels.shift }
-    rchannels = RARRAY(rb_funcall(bone, rb_intern("channels"), 0));
-    for (i = 0; i < rchannels->len; i++)
+    //rchannels = RARRAY(rb_funcall(bone, rb_intern("channels"), 0));
+    rchannels = rb_funcall(bone, rb_intern("channels"), 0);
+    for (i = 0; i < RARRAY_LEN(rchannels); i++)
     {
-        channel = *(rchannels->ptr+i);
+        channel = *(RARRAY_PTR(rchannels)+i);
         //... data[channel] = channels.shift ...
         rb_hash_aset(data, channel, rb_funcall(channels, rb_intern("shift"), 0));
     }
@@ -50,10 +52,10 @@ static VALUE rb_fParseChannelData(VALUE self, VALUE channels, VALUE bone)
     rb_ary_push(r, data);
 
     // bone.joints.each { |joint| r.concat channel_data(channels, joint) }
-    joints = RARRAY(rb_funcall(bone, rb_intern("joints"), 0));
-    for (i = 0; i < joints->len; i++)
+    joints = rb_funcall(bone, rb_intern("joints"), 0);
+    for (i = 0; i < RARRAY_LEN(joints); i++)
     {
-        joint = *(joints->ptr+i);
+        joint = *(RARRAY_PTR(joints)+i);
         // ... r.concat(channel_data(channels, joint)) ...
         rb_funcall(r, rb_intern("concat"), 1, rb_fParseChannelData(self, channels, joint));
     }

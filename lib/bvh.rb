@@ -1,4 +1,4 @@
-require 'bvh.so'
+require 'bvh_c'
 require 'bvh/matrix'
 require 'bvh/motion'
 require 'bvh/motion/channel_data'

@@ -2,7 +2,7 @@
 
 VALUE rb_cBvh = Qnil;
 
-void Init_bvh()
+void Init_bvh_c()
 {
     rb_cBvh = rb_define_class("Bvh", rb_cObject);
 
