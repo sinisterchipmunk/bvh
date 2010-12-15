@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Bvh::Motion::ChannelData</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Bvh::Motion::ChannelData</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/bvh/motion/channel_data_rb.html">
+                lib/bvh/motion/channel_data.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Hash
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000042">arithmetic_proc</a>&nbsp;&nbsp;
+      <a href="#M000044">get_channel</a>&nbsp;&nbsp;
+      <a href="#M000048">local_transform_matrix</a>&nbsp;&nbsp;
+      <a href="#M000041">new</a>&nbsp;&nbsp;
+      <a href="#M000047">relative_transform_matrix</a>&nbsp;&nbsp;
+      <a href="#M000045">rotate!</a>&nbsp;&nbsp;
+      <a href="#M000043">set_channel</a>&nbsp;&nbsp;
+      <a href="#M000046">translate!</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">bone</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+The bone that is related to this channel data.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="#M000041" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(bone, *args, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000041-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/bvh/motion/channel_data.rb, line 7</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">bone</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+        <span class="ruby-ivar">@bone</span> = <span class="ruby-identifier">bone</span>
+        <span class="ruby-keyword kw">super</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="#M000042" class="method-signature">
+          <span class="method-name">channel_data + channel_data  => new_channel_data<br />
+channel_data - channel_data  => new_channel_data<br />
+channel_data / channel_data  => new_channel_data<br />
+channel_data * channel_data  => new_channel_data<br />
+channel_data + number => new_channel_data<br />
+channel_data - number => new_channel_data<br />
+channel_data / number => new_channel_data<br />
+channel_data * number => new_channel_data<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs arithmetic on this frame with the target. The second operand may
+be either a number or another <a href="ChannelData.html">ChannelData</a>.
+If the target is a number, then that number is added to, subtracted from,
+multiplied with, or divided against each channel of this <a
+href="ChannelData.html">ChannelData</a>.
+</p>
+<p>
+If the target is another <a href="ChannelData.html">ChannelData</a>, the
+arithmetic looks something like this:
+</p>
+<pre>
+  return_value['Xposition'] = channel_data_one['Xposition'] * channel_data_two['Xposition']
+  return_value['Yposition'] = channel_data_one['Yposition'] * channel_data_two['Yposition']
+  return_value['Zposition'] = channel_data_one['Zposition'] * channel_data_two['Zposition']
+  . . .
+</pre>
+<p>
+Both objects must contain the same number of channels, and must also
+reference the same bone.
+</p>
+<p>
+Returns a <a href="ChannelData.html#M000041">new</a> instance of <a
+href="ChannelData.html">ChannelData</a> containing the result.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000042-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/bvh/motion/channel_data.rb, line 36</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arithmetic_proc</span>(<span class="ruby-identifier">target</span>)
+        <span class="ruby-comment cmt"># Fooled you again! I metaprogrammed it to save some typing!</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="#M000044" class="method-signature">
+          <span class="method-name">get_channel</span><span class="method-args">(channel)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Retrieves and returns the specified channel datum, raising an error if its
+key is not found. If the channel key is a symbol, it is converted to a
+string before the lookup is performed.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000044-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/bvh/motion/channel_data.rb, line 66</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_channel</span>(<span class="ruby-identifier">channel</span>)
+        <span class="ruby-identifier">channel</span> = <span class="ruby-identifier">channel</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">channel</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Symbol</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Channel not found: #{channel} (expected one of #{self.keys.inspect})&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">channel</span>)
+        <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">channel</span>]
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <span class="method-name">local_transform_matrix</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="ChannelData.html#M000047">relative_transform_matrix</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="#M000047" class="method-signature">
+          <span class="method-name">relative_transform_matrix</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the transform matrix for this bone&#8216;s channel data. See also
+<a href="Frame.html#M000033">Frame#relative_transform_matrix</a> and <a
+href="Frame.html#M000034">Frame#absolute_transform_matrix</a>.
+</p>
+<p>
+The resultant matrix needs to be multiplied against the parent bone&#8216;s
+transform matrix in order to be accurate to worldspace. Otherwise
+it&#8216;s only accurate in local space. If you&#8216;re not sure what that
+means, then use <a
+href="Frame.html#M000034">Frame#absolute_transform_matrix</a> instead.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000047-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/bvh/motion/channel_data.rb, line 95</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">relative_transform_matrix</span>()
+        <span class="ruby-comment cmt"># theta is retrieved from the set of numbers loaded from the BVH file, or is supplied directly</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># R is the matrix calculated for a rotation of theta degrees around the vector V</span>
+        <span class="ruby-comment cmt">#    This is performed on right, view and up vectors, multiplying the three matrices together</span>
+        <span class="ruby-comment cmt">#    to construct the rotation matrix for this bone. Since the calculations are done in world</span>
+        <span class="ruby-comment cmt">#    space, the right, up and view vectors are [1,0,0]; [0,1,0]; [0,0,1], respectively. No reason</span>
+        <span class="ruby-comment cmt">#    we couldn't attach a Camera object to this bone and figure it out that way, but it'd actually</span>
+        <span class="ruby-comment cmt">#    be more work to create and maintain the camera than to just calculate the matrix. Obviously,</span>
+        <span class="ruby-comment cmt">#    the resultant matrix needs to be multiplied against the parent bone's rotation matrix in order</span>
+        <span class="ruby-comment cmt">#    to be accurate to worldspace. Otherwise it's only accurate in local space.</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># R = [tx^2 + c,  txy - sz,  txz + sy,  0]</span>
+        <span class="ruby-comment cmt">#     [txy + sz,  ty^2 + c,  tyz - sx,  0]</span>
+        <span class="ruby-comment cmt">#     [txz - sy,  tyz + sx,  tz^2 + c,  0]</span>
+        <span class="ruby-comment cmt">#     [       0,         0,         0,  1]</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># where c = cos theta,</span>
+        <span class="ruby-comment cmt">#       s = sin theta,</span>
+        <span class="ruby-comment cmt">#       t = 1 - c</span>
+        <span class="ruby-comment cmt"># [x,y,z] = a unit vector on the axis of rotation</span>
+
+        <span class="ruby-comment cmt"># bone.channels.each so that we don't lose order of operation</span>
+        <span class="ruby-identifier">r</span> = <span class="ruby-constant">Matrix</span>.<span class="ruby-identifier">identity</span>(<span class="ruby-value">4</span>)
+        <span class="ruby-identifier">bone</span>.<span class="ruby-identifier">channels</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">chan</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">v</span> = <span class="ruby-keyword kw">nil</span>
+          <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">chan</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'Xrotation'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">v</span> = [<span class="ruby-value">1</span>,<span class="ruby-value">0</span>,<span class="ruby-value">0</span>] <span class="ruby-comment cmt"># right vector</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'Yrotation'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">v</span> = [<span class="ruby-value">0</span>,<span class="ruby-value">1</span>,<span class="ruby-value">0</span>] <span class="ruby-comment cmt"># up vector</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'Zrotation'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">v</span> = [<span class="ruby-value">0</span>,<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-comment cmt"># view vector</span>
+            <span class="ruby-keyword kw">else</span> <span class="ruby-keyword kw">next</span> <span class="ruby-comment cmt"># ignore nonrotational values. To my knowledge, this includes only position values.</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">theta</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">chan</span>]
+          <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">z</span> = <span class="ruby-identifier">v</span>
+          <span class="ruby-identifier">c</span>, <span class="ruby-identifier">s</span>, <span class="ruby-identifier">t</span> = <span class="ruby-constant">Math</span>.<span class="ruby-identifier">cos</span>(<span class="ruby-identifier">theta</span>), <span class="ruby-constant">Math</span>.<span class="ruby-identifier">sin</span>(<span class="ruby-identifier">theta</span>), <span class="ruby-value">1</span> <span class="ruby-operator">-</span> <span class="ruby-constant">Math</span>.<span class="ruby-identifier">cos</span>(<span class="ruby-identifier">theta</span>)
+          <span class="ruby-identifier">mat</span> = <span class="ruby-constant">Matrix</span>.<span class="ruby-identifier">identity</span>(<span class="ruby-value">4</span>)
+          <span class="ruby-identifier">mat</span>[<span class="ruby-value">0</span>,<span class="ruby-value">0</span>], <span class="ruby-identifier">mat</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>], <span class="ruby-identifier">mat</span>[<span class="ruby-value">0</span>,<span class="ruby-value">2</span>] = <span class="ruby-identifier">t</span><span class="ruby-operator">*</span>(<span class="ruby-identifier">x</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">c</span>, <span class="ruby-identifier">t</span><span class="ruby-operator">*</span><span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">s</span><span class="ruby-operator">*</span><span class="ruby-identifier">z</span>, <span class="ruby-identifier">t</span><span class="ruby-operator">*</span><span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-identifier">z</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">s</span><span class="ruby-operator">*</span><span class="ruby-identifier">y</span>
+          <span class="ruby-identifier">mat</span>[<span class="ruby-value">1</span>,<span class="ruby-value">0</span>], <span class="ruby-identifier">mat</span>[<span class="ruby-value">1</span>,<span class="ruby-value">1</span>], <span class="ruby-identifier">mat</span>[<span class="ruby-value">1</span>,<span class="ruby-value">2</span>] = <span class="ruby-identifier">t</span><span class="ruby-operator">*</span><span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-identifier">y</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">s</span><span class="ruby-operator">*</span><span class="ruby-identifier">z</span>, <span class="ruby-identifier">t</span><span class="ruby-operator">*</span>(<span class="ruby-identifier">y</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">c</span>, <span class="ruby-identifier">t</span><span class="ruby-operator">*</span><span class="ruby-identifier">y</span><span class="ruby-operator">*</span><span class="ruby-identifier">z</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">s</span><span class="ruby-operator">*</span><span class="ruby-identifier">x</span>
+          <span class="ruby-identifier">mat</span>[<span class="ruby-value">2</span>,<span class="ruby-value">0</span>], <span class="ruby-identifier">mat</span>[<span class="ruby-value">2</span>,<span class="ruby-value">1</span>], <span class="ruby-identifier">mat</span>[<span class="ruby-value">2</span>,<span class="ruby-value">2</span>] = <span class="ruby-identifier">t</span><span class="ruby-operator">*</span><span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-identifier">z</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">s</span><span class="ruby-operator">*</span><span class="ruby-identifier">y</span>, <span class="ruby-identifier">t</span><span class="ruby-operator">*</span><span class="ruby-identifier">y</span><span class="ruby-operator">*</span><span class="ruby-identifier">z</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">s</span><span class="ruby-operator">*</span><span class="ruby-identifier">x</span>, <span class="ruby-identifier">t</span><span class="ruby-operator">*</span>(<span class="ruby-identifier">z</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">c</span>
+          <span class="ruby-identifier">r</span> <span class="ruby-operator">*=</span> <span class="ruby-identifier">mat</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Finally, the last row is simply set to the translation and/or bone offset.</span>
+        <span class="ruby-identifier">r</span>[<span class="ruby-value">0</span>,<span class="ruby-value">3</span>] = <span class="ruby-identifier">bone</span>.<span class="ruby-identifier">offset</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">+</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">&quot;Xposition&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">'Xposition'</span>] <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+        <span class="ruby-identifier">r</span>[<span class="ruby-value">1</span>,<span class="ruby-value">3</span>] = <span class="ruby-identifier">bone</span>.<span class="ruby-identifier">offset</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">+</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">&quot;Yposition&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">'Yposition'</span>] <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+        <span class="ruby-identifier">r</span>[<span class="ruby-value">2</span>,<span class="ruby-value">3</span>] = <span class="ruby-identifier">bone</span>.<span class="ruby-identifier">offset</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">+</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">&quot;Zposition&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">'Zposition'</span>] <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+        <span class="ruby-identifier">r</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="#M000045" class="method-signature">
+          <span class="method-name">rotate!</span><span class="method-args">(channel, theta)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Modifies the specified channel datum, resulting in a rotation around the
+specified channel.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000045-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/bvh/motion/channel_data.rb, line 73</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rotate!</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-identifier">theta</span>)
+        <span class="ruby-identifier">theta</span> = <span class="ruby-identifier">get_channel</span>(<span class="ruby-identifier">channel</span>)<span class="ruby-operator">+</span><span class="ruby-identifier">theta</span>
+        <span class="ruby-comment cmt"># this doesn't really have an effect, but may help keep the file from getting junked.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">theta</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">360</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">theta</span> <span class="ruby-operator">%=</span> <span class="ruby-value">360</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">theta</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">-360</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">theta</span> <span class="ruby-operator">%=</span> <span class="ruby-value">-360</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">set_channel</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-identifier">theta</span>)
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="#M000043" class="method-signature">
+          <span class="method-name">set_channel</span><span class="method-args">(channel, theta)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the specified channel to a value of theta, and then returns self.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000043-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/bvh/motion/channel_data.rb, line 58</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_channel</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-identifier">theta</span>)
+        <span class="ruby-identifier">channel</span> = <span class="ruby-identifier">channel</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">channel</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Symbol</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Channel not found: #{channel} (expected one of #{self.keys.inspect})&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">channel</span>
+        <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">channel</span>] = <span class="ruby-identifier">theta</span>
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="#M000046" class="method-signature">
+          <span class="method-name">translate!</span><span class="method-args">(x, y, z)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Adds x, y and z to the X, Y and Z position channels, resulting in a
+&quot;movement&quot; or translation.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000046-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/bvh/motion/channel_data.rb, line 83</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">translate!</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">z</span>)
+        <span class="ruby-identifier">set_channel</span>(<span class="ruby-value str">'Xposition'</span>, <span class="ruby-identifier">get_channel</span>(<span class="ruby-value str">'Xposition'</span>)<span class="ruby-operator">+</span><span class="ruby-identifier">x</span>)
+        <span class="ruby-identifier">set_channel</span>(<span class="ruby-value str">'Yposition'</span>, <span class="ruby-identifier">get_channel</span>(<span class="ruby-value str">'Yposition'</span>)<span class="ruby-operator">+</span><span class="ruby-identifier">y</span>)
+        <span class="ruby-identifier">set_channel</span>(<span class="ruby-value str">'Zposition'</span>, <span class="ruby-identifier">get_channel</span>(<span class="ruby-value str">'Zposition'</span>)<span class="ruby-operator">+</span><span class="ruby-identifier">z</span>)
+      <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
